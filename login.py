@@ -1,4 +1,6 @@
 from flask import Flask, request,render_template
+import argparse
+import sys
 
 app = Flask(__name__)
 
@@ -16,4 +18,12 @@ def form():
 
 # アプリケーションを動かすためのおまじない
 if __name__ == "__main__":
-    app.run(port = 8000, debug=True)
+    parser = argparse.ArgumentParser(description='put arg')
+    parser.add_argument('--host',default='0.0.0.0')
+    parser.add_argument('--port',default='8000')
+    parser.add_argument('--debug',default='True')
+    args = parser.parse_args()
+    print(args.host)
+    print(args.port)
+    print(args.debug)
+    app.run(host = args.host,port = int(args.port), debug=args.debug)
